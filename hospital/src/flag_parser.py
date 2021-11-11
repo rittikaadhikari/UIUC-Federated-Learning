@@ -17,6 +17,7 @@ class Parser:
                 default_port = self.parameters['port']
 
         parser.add_argument('--port', type=int, required=False, default = default_port, help="port to run the gRPC server on")
+        parser.add_argument('--attack-config', type=str, required=False, default="fault.yaml", help="Data Fault attack configuration file")
         flag_params = parser.parse_args()
         self.parameters.update(vars(flag_params))
     

@@ -12,6 +12,7 @@ from .utils import network_parameters, test_inference
 from .models import *
 from .local_train import LocalUpdate
 from .flag_parser import Parser
+from .data_fault import MnistLabelFlipDataset
 
 from collections import OrderedDict
 from sklearn.model_selection import train_test_split
@@ -32,8 +33,9 @@ class ModelTraining():
                 transforms.ToTensor(), 
                 transforms.Normalize((0.1307,), (0.3081,))
             ])
-            train_dataset = datasets.MNIST(data_dir, train=True, download=True, transform=transformation)
-            test_dataset = datasets.MNIST(data_dir, train=False, download=True, transform=transformation)
+            classes = list(range(10))
+            train_dataset = MnistLabelFlipDataset(self.parameters['attack_config'], "data/train", train=True, transforms=transformation) 
+            test_dataset = MnistLabelFlipDataset(self.parameters['attack_config'], "data/test", train=False, transforms=transformation) 
             self.parameters['batch_print_frequency'] = 500
         elif self.parameters['data_source'] == 'COVID':
             transformation = transforms.Compose([

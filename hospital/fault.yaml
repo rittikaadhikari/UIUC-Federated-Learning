@@ -1,0 +1,5 @@
+attack:
+    train:
+        probability: 1.0
+    test:
+        probability: 1.0
